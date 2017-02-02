@@ -1,0 +1,16 @@
+<div class="col-md-5" >
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th> </th>
+                <th>Auktion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="auc in allAuctions">
+                <td><img style="width: 200px" ng-src="{{auc.imageUrl}}"></td>
+                <td><a href="/auction/{{auc.id}}">{{auc.name}}</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

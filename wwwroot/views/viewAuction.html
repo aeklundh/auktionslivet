@@ -1,0 +1,27 @@
+<div>
+    <p>Produkt: {{ auctionInfo.name }}</p>
+    <p>{{ auctionInfo.description }}</p>
+    <p>Högsta bud: {{ highestBid }} </p>
+    <p>Acceptpris: {{ auctionInfo.buyNowPrice }}</p>
+    <p>Auktionen började {{ auctionInfo.startTime }} och slutar {{ auctionInfo.endTime }}</p>
+    <p>{{ sold }}</p>
+    <button type="button" data-ng-click="ToggleVisibility()" class="btn btn-default"  >Visa budhistorik</button>
+    <button data-ng-disabled="auctionInfo.sold" class="btn btn-default">Buyout</button>
+
+    <div data-ng-show="bidHistoryVisible">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Bud lagt</th>
+                    <th>Värde</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="bid in bidHistory">
+                    <td>{{ bid.dateTime.toUTCString() }}</td>
+                    <td>{{ bid.bidPrice }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

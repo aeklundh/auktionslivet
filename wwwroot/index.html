@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunnars auktionshörna</title>
+    <base href="/">
+    <link rel="shortcut icon" href="/img/auktionslivet.ico" />
+    <link rel="stylesheet" href="lib/bootstrap.native/assets/css/bootstrap.min.css">
+    <script src="lib/bootstrap.native/dist/bootstrap-native.min.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+</head>
+<body>
+    <h2>Gunnars auktionshörna</h2>
+    <div ng-app="auktionslivet" >
+        <div class="container-fluid" ng-view >
+
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="services/AuctionService.js"></script>
+    <script src="controllers/AuctionController.js"></script>
+    <script src="controllers/ViewAuctionController.js"></script>
+</body>
+</html>
