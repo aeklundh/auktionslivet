@@ -1,27 +1,66 @@
-<div>
-    <p>Produkt: {{ auctionInfo.name }}</p>
-    <p>{{ auctionInfo.description }}</p>
-    <p>Högsta bud: {{ highestBid }} </p>
-    <p>Acceptpris: {{ auctionInfo.buyNowPrice }}</p>
-    <p>Auktionen började {{ auctionInfo.startTime }} och slutar {{ auctionInfo.endTime }}</p>
-    <p>{{ sold }}</p>
-    <button type="button" data-ng-click="ToggleVisibility()" class="btn btn-default"  >Visa budhistorik</button>
-    <button data-ng-disabled="auctionInfo.sold" class="btn btn-default">Buyout</button>
+<div class="row">
+    <div class="col-md-5">
+        <p>Produkt: {{ auctionInfo.name }} i kategori <i>{{ auctionInfo.categoryName }}</i>.</p>
+        <p>{{ auctionInfo.description }}</p>
+        <p>Högsta bud: {{ highestBid }} SEK.</p>
+        <p>Acceptpris: {{ auctionInfo.buyNowPrice }} SEK.</p>
+        <p>Auktionen började <i>{{ auctionInfo.startTime.toUTCString() }}</i> och slutar <i>{{ auctionInfo.endTime.toUTCString() }}</i>.</p>
+        <p class="text-info">{{ sold }}.</p>
 
-    <div data-ng-show="bidHistoryVisible">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Bud lagt</th>
-                    <th>Värde</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="bid in bidHistory">
-                    <td>{{ bid.dateTime.toUTCString() }}</td>
-                    <td>{{ bid.bidPrice }}</td>
-                </tr>
-            </tbody>
-        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <img data-ng-src="{{ auctionInfo.imageUrl }}" style="max-width: 50%">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <button type="button" data-ng-click="ToggleVisibility('bid', bidVisible)" data-ng-disabled="auctionInfo.sold" class="btn btn-info" >Lägg bud</button>
+        <button type="button" data-ng-click="ToggleVisibility('buyout', buyoutVisible)" data-ng-disabled="auctionInfo.sold" class="btn btn-info" >Köp nu</button>
+        <button type="button" data-ng-click="ToggleVisibility('bidHistory', bidHistoryVisible)" class="btn btn-default">Visa budhistorik</button>
+        <button type="button" data-ng-click="ToggleVisibility('supplierInfo', supplierInfoVisible)" class="btn btn-default">Visa detaljer om säljaren</button>
+
+        <div class="row">
+            <div data-ng-show="bidVisible">
+                <label class="control-label" for="bidInput">Ange ditt buds belopp</label>
+                <input id="bidInput" type="number">
+                <button class="btn btn-primary">Lägg bud</button>
+            </div>
+            <div data-ng-show="buyoutVisible">
+                <p><b>Priset är: {{ auctionInfo.buyNowPrice }} SEK. Tryck på knappen under för att köpa nu.</b></p>
+                <button class="btn btn-primary">Köp för {{ auctionInfo.buyNowPrice }} SEK</button>
+            </div>
+        </div>
+        <div class="row">
+            <div data-ng-show="bidHistoryVisible">
+                <label for="historyTable" class="control-label"><br/>Budhistorik</label>
+                <table id="historyTable" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Bud lagt</th>
+                            <th>Värde</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="bid in bidHistory">
+                            <td>{{ bid.dateTime.toUTCString() }}</td>
+                            <td>{{ bid.bidPrice }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div data-ng-show="supplierInfoVisible">
+                <br />
+                <p><b>Säljare:</b> {{ supplierInfo.name }}. <br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>{{ supplierInfo.address }} <br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ supplierInfo.postalCode }} <br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ supplierInfo.city }}</i> <br />
+                Tel: {{ supplierInfo.phone }}<br />
+                E-post: {{ supplierInfo.email }}</p>
+            </div>
+        </div>
     </div>
 </div>

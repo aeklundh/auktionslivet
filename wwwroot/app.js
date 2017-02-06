@@ -15,3 +15,9 @@ app.config(function($routeProvider, $locationProvider) {
 
     $locationProvider.html5Mode(true);
 });
+
+// app.directive("woop", function() {
+//     return {
+//         templateUrl: "directives/woop.html"
+//     };
+// });

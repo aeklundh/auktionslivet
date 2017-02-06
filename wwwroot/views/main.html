@@ -1,16 +1,35 @@
-<div class="col-md-5" >
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th> </th>
-                <th>Auktion</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="auc in allAuctions">
-                <td><img style="width: 200px" ng-src="{{auc.imageUrl}}"></td>
-                <td><a href="/auction/{{auc.id}}">{{auc.name}}</a></td>
-            </tr>
-        </tbody>
-    </table>
+<div class="row">
+    <div class="col-md-5" style="background-color: lightpink; border: 1px solid black">
+        <div class="row">
+            <label class="control-label" for="searchField">Sök</label>
+            <input id="searchField" type="text" data-ng-model="searchString" >
+        </div>
+        <div class="row">
+            <label class="control-label" for="catSelect">Kategorier</label>
+            <select data-ng-model="selectedCategory" data-ng-options="c as c.name for c in categories">
+                <option value="">Visa alla</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Auktion</th>
+                    <th>Kategori</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="auc in allAuctions | orderBy:'categoryName' | filter: {'name': searchString } | filter: { 'categoryId': selectedCategory.id }">
+                    <td><img style="max-width: 40%; max-height: 300px" data-ng-src="{{auc.imageUrl}}"></td>
+                    <td><a href="/auction/{{auc.id}}">{{auc.name}}</a></td>
+                    <td>{{ auc.categoryName }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
