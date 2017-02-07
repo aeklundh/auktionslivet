@@ -1,17 +1,17 @@
 angular.module("Auctions")
     .controller("ViewAuctionController", function ($scope, $routeParams, AuctionService) {
-        
+
         //get auction info
         AuctionService.GetAuction($routeParams.id).then(function (auction) {
             //set info to more presentable formats
             $scope.auctionInfo = auction;
             $scope.auctionInfo.startTime = new Date(auction.startTime);
             $scope.auctionInfo.endTime = new Date(auction.endTime);
-            if (auction.sold == false) {
-                $scope.sold = "Ej såld"
+            if (auction.sold == false && auction.endTime > new Date()) {
+                $scope.sold = "Auktionen har inte avslutats än"
             }
             else {
-                $scope.sold = "Produkten är såld och kan ej budas på."
+                $scope.sold = "Auktionen har avslutats och kan ej längre budas på"
             }
 
             AuctionService.GetCategories().then(function (categories) {
@@ -32,22 +32,47 @@ angular.module("Auctions")
         });
 
         //get relevant bids
-        AuctionService.GetBidsById($routeParams.id).then(function (allBids) {
-            $scope.bidHistory = allBids;
+        $scope.updateBids = function () {
+            AuctionService.GetBidsById($routeParams.id).then(function (allBids) {
+                $scope.bidHistory = allBids;
 
-            let highest = 0;
-            for (let i = 0; i < allBids.length; i++) {
-                if (allBids[i].bidPrice > highest) {
-                    highest = allBids[i].bidPrice;
+                let highest = 0;
+                for (let i = 0; i < allBids.length; i++) {
+                    if (allBids[i].bidPrice > highest) {
+                        highest = allBids[i].bidPrice;
+                    }
+                    $scope.bidHistory[i].dateTime = new Date(allBids[i].dateTime);
                 }
-                $scope.bidHistory[i].dateTime = new Date(allBids[i].dateTime);
+
+                $scope.highestBid = highest;
+            });
+        }
+
+        $scope.updateBids();
+        //set functions for the view
+        $scope.bid = function (bid) {
+            //auctionId, customerId, bid
+            if (bid > $scope.highestBid && bid < $scope.auctionInfo.buyNowPrice) {
+                AuctionService.Bid($scope.auctionInfo.id, 2, bid).then(function (response) {
+                    $scope.updateBids();
+                    console.log(response);
+                    if (response.status != 200) {
+                        $scope.bidDeclined = true;
+                    }
+                });
             }
+            else {
+                $scope.invalidBid = true;
+            }
+        }
 
-            $scope.highestBid = highest;
-        });
-
-        $scope.Bid = function(bid) {
-            AuctionService.Bid(3, 2, 1450);
+        $scope.buyout = function() {
+            AuctionService.Buyout($scope.auctionInfo.id, 2).then(function(response) {
+                $scope.auctionInfo.sold = true;
+                if (response.status != 200) {
+                    $scope.buyoutDeclined = true;
+                }
+            });
         }
 
         $scope.ToggleVisibility = function (identifier, visibility) {
@@ -98,4 +123,5 @@ angular.module("Auctions")
         $scope.buyoutVisible = false;
         $scope.bidHistoryVisible = false;
         $scope.supplierInfoVisible = false;
+        $scope.invalidBid = false;
     });

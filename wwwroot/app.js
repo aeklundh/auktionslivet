@@ -9,6 +9,14 @@ app.config(function($routeProvider, $locationProvider) {
         templateUrl: "views/viewAuction.html",
         controller: "ViewAuctionController"
     })
+    .when("/login", {
+        templateUrl: "views/login.html" //,
+        // controller: "LoginController"
+    })
+    .when("/register", {
+        templateUrl: "views/register.html" //,
+        // controller: "RegisterController"
+    })
     .otherwise( {
         templateUrl: "views/error.html"
     });

@@ -37,13 +37,19 @@ angular.module("Auctions", [])
                     "customerId": customerId,
                     "bidPrice": bidPrice
                 };
+                return $http.post("http://nackademiska.azurewebsites.net/api/bid", bid).then(function(response) {
+                        return response;
+                    });
+            },
 
-                $http.post("http://nackademiska.azurewebsites.net/api/bid", bid);
-                    // .then(function(response) {
-                    //     if (response.error != null) {
-                            
-                    //     }
-                    // })
+            Buyout: function() {
+                let buyout = {
+                    "auctionId": auctionId,
+                    "customerId": customerId
+                };
+                return $http.post("http://nackademiska.azurewebsites.net/api/auction/buynow", buyout).then(function(response) {
+                    return response;
+                })
             }
         }
     });

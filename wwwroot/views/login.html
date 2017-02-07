@@ -1,0 +1,16 @@
+<div class="col-md-5">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="email" class="control-label">E-post</label>
+            <input type="email" data-ng-model="email" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password" class="control-label">Lösenord</label>
+            <input type="password" data-ng-model="password" class="form-control">
+        </div>
+        <div class="form-group">
+            <button type="button" data-ng-click="login()" class="btn btn-primary">Logga in</button>
+            <span data-ng-show="invalidLogin"><p class="text-info">Vi kunde inte logga in dig med de uppgifterna.</p></span>
+        </div>
+    </form>
+</div>
