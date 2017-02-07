@@ -52,10 +52,10 @@ angular.module("Auctions")
         //get auction info
         AuctionService.GetAuction($routeParams.id).then(function (auction) {
             //set info to more presentable formats
-            $scope.auctionInfo = auction.data;
-            $scope.auctionInfo.startTime = new Date(auction.data.startTime);
-            $scope.auctionInfo.endTime = new Date(auction.data.endTime);
-            if (auction.data.sold == false) {
+            $scope.auctionInfo = auction;
+            $scope.auctionInfo.startTime = new Date(auction.startTime);
+            $scope.auctionInfo.endTime = new Date(auction.endTime);
+            if (auction.sold == false) {
                 $scope.sold = "Ej såld"
             }
             else {
@@ -63,9 +63,9 @@ angular.module("Auctions")
             }
 
             AuctionService.GetCategories().then(function (categories) {
-                for (let i = 0; i < categories.data.length; i++) {
-                    if (categories.data[i].id === auction.data.categoryId) {
-                        $scope.auctionInfo.categoryName = categories.data[i].name;
+                for (let i = 0; i < categories.length; i++) {
+                    if (categories[i].id === auction.categoryId) {
+                        $scope.auctionInfo.categoryName = categories[i].name;
                         break;
                     }
                 }
@@ -75,20 +75,20 @@ angular.module("Auctions")
             });
 
             AuctionService.GetSupplierInfo($scope.auctionInfo.supplierId).then(function (supplierInfo) {
-                $scope.supplierInfo = supplierInfo.data;
+                $scope.supplierInfo = supplierInfo;
             });
         });
 
         //get relevant bids
         AuctionService.GetBidsById($routeParams.id).then(function (allBids) {
-            $scope.bidHistory = allBids.data;
+            $scope.bidHistory = allBids;
 
             let highest = 0;
-            for (let i = 0; i < allBids.data.length; i++) {
-                if (allBids.data[i].bidPrice > highest) {
-                    highest = allBids.data[i].bidPrice;
+            for (let i = 0; i < allBids.length; i++) {
+                if (allBids[i].bidPrice > highest) {
+                    highest = allBids[i].bidPrice;
                 }
-                $scope.bidHistory[i].dateTime = new Date(allBids.data[i].dateTime);
+                $scope.bidHistory[i].dateTime = new Date(allBids[i].dateTime);
             }
 
             $scope.highestBid = highest;

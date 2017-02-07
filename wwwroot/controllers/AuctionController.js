@@ -2,15 +2,15 @@ angular.module("Auctions")
     .controller("AuctionController", function ($scope, AuctionService) {
         //set AllAuctions
         AuctionService.GetAllAuctions().then(function (auctions) {
-            $scope.allAuctions = auctions.data;
+            $scope.allAuctions = auctions;
 
             //get categories and assign names
             AuctionService.GetCategories().then(function (categories) {
-                $scope.categories = categories.data;
-                for (let i = 0; i < auctions.data.length; i++) {
-                    for (let n = 0; n < categories.data.length; n++) {
-                        if (categories.data[n].id === $scope.allAuctions[i].categoryId) {
-                            $scope.allAuctions[i].categoryName = categories.data[n].name;
+                $scope.categories = categories;
+                for (let i = 0; i < auctions.length; i++) {
+                    for (let n = 0; n < categories.length; n++) {
+                        if (categories[n].id === $scope.allAuctions[i].categoryId) {
+                            $scope.allAuctions[i].categoryName = categories[n].name;
                             break;
                         }
                     }
