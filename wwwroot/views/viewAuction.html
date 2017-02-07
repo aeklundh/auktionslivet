@@ -27,7 +27,7 @@
             <div data-ng-show="bidVisible">
                 <label class="control-label" for="bidInput">Ange ditt buds belopp</label>
                 <input id="bidInput" type="number">
-                <button class="btn btn-primary">Lägg bud</button>
+                <button data-ng-click="Bid()" class="btn btn-primary">Lägg bud</button>
             </div>
             <div data-ng-show="buyoutVisible">
                 <p><b>Priset är: {{ auctionInfo.buyNowPrice }} SEK. Tryck på knappen under för att köpa nu.</b></p>

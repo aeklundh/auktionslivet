@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr data-ng-repeat="auc in allAuctions | orderBy:'categoryName' | filter: {'name': searchString } | filter: { 'categoryId': selectedCategory.id }">
+                <tr data-ng-repeat="auc in allAuctions | orderBy:'categoryName' | filter: {'name': searchString } | filter: { 'categoryId': selectedCategory.id } | filter: { 'sold': false }" ng-if="auc.endTime > currentTimestamp" >
                     <td><img style="max-width: 40%; max-height: 300px" data-ng-src="{{auc.imageUrl}}"></td>
                     <td><a href="/auction/{{auc.id}}">{{auc.name}}</a></td>
                     <td>{{ auc.categoryName }}</td>

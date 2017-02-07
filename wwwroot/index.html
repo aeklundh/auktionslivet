@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,10 +12,25 @@
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-route/angular-route.js"></script>
 </head>
+
 <body>
-    <h2>Gunnars auktionshörna</h2>
-    <div ng-app="auktionslivet" >
-        <div class="container-fluid" ng-view >
+    <div ng-app="auktionslivet">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">Gunnars Auktionshörna</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="#">Bra länk</a></li>
+                    <li><a href="#">Bättre länk</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Registrera</a></li>
+                    <li><a href="#">Logga in</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container-fluid" ng-view>
 
         </div>
     </div>
@@ -24,4 +40,5 @@
     <script src="controllers/AuctionController.js"></script>
     <script src="controllers/ViewAuctionController.js"></script>
 </body>
+
 </html>

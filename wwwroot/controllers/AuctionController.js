@@ -1,5 +1,8 @@
 angular.module("Auctions")
     .controller("AuctionController", function ($scope, AuctionService) {
+        //set datetime
+        $scope.currentTimestamp = new Date();
+
         //set AllAuctions
         AuctionService.GetAllAuctions().then(function (auctions) {
             $scope.allAuctions = auctions;
@@ -18,6 +21,8 @@ angular.module("Auctions")
                     if ($scope.allAuctions[i].categoryName == null) {
                         $scope.allAuctions[i].categoryName = "Okänd";
                     }
+
+                    $scope.allAuctions[i].endTime = new Date($scope.allAuctions[i].endTime);
                 }
             });
         });

@@ -29,6 +29,21 @@ angular.module("Auctions", [])
                 return $http.get("http://nackademiska.azurewebsites.net/api/supplier/" + id).then(function(supplierInfo) {
                     return supplierInfo.data;
                 });
+            },
+
+            Bid: function(auctionId, customerId, bidPrice) {
+                let bid = {
+                    "auctionId": auctionId,
+                    "customerId": customerId,
+                    "bidPrice": bidPrice
+                };
+
+                $http.post("http://nackademiska.azurewebsites.net/api/bid", bid);
+                    // .then(function(response) {
+                    //     if (response.error != null) {
+                            
+                    //     }
+                    // })
             }
         }
     });
