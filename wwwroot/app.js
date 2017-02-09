@@ -1,4 +1,4 @@
-var app = angular.module("auktionslivet", ["ngRoute", "Auctions"]);
+var app = angular.module("auktionslivet", ["ngRoute", "Auctions", "Authentication"]);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider.when("/", {
@@ -10,12 +10,16 @@ app.config(function($routeProvider, $locationProvider) {
         controller: "ViewAuctionController"
     })
     .when("/login", {
-        templateUrl: "views/login.html" //,
-        // controller: "LoginController"
+        templateUrl: "views/login.html",
+        controller: "LoginController"
     })
     .when("/register", {
-        templateUrl: "views/register.html" //,
-        // controller: "RegisterController"
+        templateUrl: "views/register.html",
+        controller: "RegisterController"
+    })
+    .when("/logout", {
+        templateUrl: "views/login.html",
+        controller: "LoginController"
     })
     .otherwise( {
         templateUrl: "views/error.html"

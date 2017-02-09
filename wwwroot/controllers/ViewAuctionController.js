@@ -1,5 +1,5 @@
 angular.module("Auctions")
-    .controller("ViewAuctionController", function ($scope, $routeParams, AuctionService) {
+    .controller("ViewAuctionController", function ($scope, $routeParams, AuctionService, AuthService) {
 
         //get auction info
         AuctionService.GetAuction($routeParams.id).then(function (auction) {
@@ -20,9 +20,6 @@ angular.module("Auctions")
                         $scope.auctionInfo.categoryName = categories[i].name;
                         break;
                     }
-                }
-                if ($scope.auctionInfo.categoryName == null) {
-                    $scope.auctionInfo.categoryName = "Okänd";
                 }
             });
 
@@ -53,7 +50,7 @@ angular.module("Auctions")
         $scope.bid = function (bid) {
             //auctionId, customerId, bid
             if (bid > $scope.highestBid && bid < $scope.auctionInfo.buyNowPrice) {
-                AuctionService.Bid($scope.auctionInfo.id, 2, bid).then(function (response) {
+                AuctionService.Bid($scope.auctionInfo.id, AuthService.GetCurrentUserId(), bid).then(function (response) {
                     $scope.updateBids();
                     console.log(response);
                     if (response.status != 200) {
@@ -67,10 +64,13 @@ angular.module("Auctions")
         }
 
         $scope.buyout = function() {
-            AuctionService.Buyout($scope.auctionInfo.id, 2).then(function(response) {
+            AuctionService.Buyout($scope.auctionInfo.id, AuthService.GetCurrentUserId()).then(function(response) {
                 $scope.auctionInfo.sold = true;
                 if (response.status != 200) {
                     $scope.buyoutDeclined = true;
+                }
+                else {
+                    $scope.buyoutConfirmation = true;
                 }
             });
         }

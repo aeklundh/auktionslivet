@@ -15,14 +15,15 @@
 
 <body style="background-color: ghostwhite">
     <div ng-app="auktionslivet">
-        <nav class="navbar navbar-default">
+        <nav style="background-color: lightpink" class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">Gunnars Auktionshörna</a>
                 </div>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/register">Registrera</a></li>
-                    <li><a href="/login">Logga in</a></li>
+                <ul class="nav navbar-nav">
+                    <li ng-if="rs_authenticatedUser == null"><a href="/register">Registrera ett konto</a></li>
+                    <li ng-if="rs_authenticatedUser == null"><a href="/login">Logga in</a></li>
+                    <li ng-if="rs_authenticatedUser != null"><a href="/logout">Logga ut</a></li>
                 </ul>
             </div>
         </nav>
@@ -32,9 +33,12 @@
     </div>
 
     <script src="app.js"></script>
-    <script src="services/AuctionService.js"></script>
-    <script src="controllers/AuctionController.js"></script>
-    <script src="controllers/ViewAuctionController.js"></script>
+    <script src="services/auctionService.js"></script>
+    <script src="services/authService.js"></script>
+    <script src="controllers/auctionController.js"></script>
+    <script src="controllers/viewAuctionController.js"></script>
+    <script src="controllers/loginController.js"></script>
+    <script src="controllers/registerController.js"></script>
 </body>
 
 </html>

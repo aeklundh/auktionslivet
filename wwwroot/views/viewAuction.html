@@ -17,8 +17,9 @@
 
 <div class="row">
     <div class="col-md-5">
-        <button type="button" data-ng-click="ToggleVisibility('bid', bidVisible)" data-ng-disabled="auctionInfo.sold" class="btn btn-info">Lägg bud</button>
-        <button type="button" data-ng-click="ToggleVisibility('buyout', buyoutVisible)" data-ng-disabled="auctionInfo.sold" class="btn btn-info">Köp nu</button>
+        <span data-ng-if="rs_authenticatedUser == null"><p class="text-warning">Du måste <a href="/login">logga in</a> för att lägga ett bud.</p></span>
+        <button type="button" data-ng-click="ToggleVisibility('bid', bidVisible)" data-ng-disabled="auctionInfo.sold || rs_authenticatedUser == null" class="btn btn-info">Lägg bud</button>
+        <button type="button" data-ng-click="ToggleVisibility('buyout', buyoutVisible)" data-ng-disabled="auctionInfo.sold || rs_authenticatedUser == null" class="btn btn-info">Köp nu</button>
         <button type="button" data-ng-click="ToggleVisibility('bidHistory', bidHistoryVisible)" class="btn btn-default">Visa budhistorik</button>
         <button type="button" data-ng-click="ToggleVisibility('supplierInfo', supplierInfoVisible)" class="btn btn-default">Visa detaljer om säljaren</button>
 
@@ -31,6 +32,7 @@
                 <span ng-show="bidDeclined"><p class="text-warning">Ditt bud nekades, det är möjligt att någon nyss lagt ett högre eller auktionen gått ut.</p></span>
             </div>
             <div data-ng-show="buyoutVisible">
+                <span ng-show="buyoutConfirmation"><p class="text-info">Ditt köp gick igenom, tack!</p></span>
                 <p><b>Priset är: {{ auctionInfo.buyNowPrice }} SEK. Tryck på knappen under för att köpa nu.</b></p>
                 <button data-ng-click="buyout()" class="btn btn-primary">Köp för {{ auctionInfo.buyNowPrice }} SEK</button>
                 <span ng-show="buyoutDeclined"><p class="text-warning">Ditt köp nekades, det är möjligt att auktionen just köpts eller gått ut.</p></span>
