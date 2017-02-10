@@ -23,6 +23,7 @@
                 <ul class="nav navbar-nav">
                     <li ng-if="rs_authenticatedUser == null"><a href="/register">Registrera ett konto</a></li>
                     <li ng-if="rs_authenticatedUser == null"><a href="/login">Logga in</a></li>
+                    <li ng-if="rs_authenticatedUser == -1"><a href="/admin">Administrationspanel</a></li>
                     <li ng-if="rs_authenticatedUser != null"><a href="/logout">Logga ut</a></li>
                 </ul>
             </div>
@@ -33,12 +34,17 @@
     </div>
 
     <script src="app.js"></script>
+    <script src="services/adminService.js"></script>
     <script src="services/auctionService.js"></script>
     <script src="services/authService.js"></script>
+    
+    <script src="controllers/adminController.js"></script>
     <script src="controllers/auctionController.js"></script>
-    <script src="controllers/viewAuctionController.js"></script>
     <script src="controllers/loginController.js"></script>
     <script src="controllers/registerController.js"></script>
+    <script src="controllers/viewAuctionController.js"></script>
+    
+
 </body>
 
 </html>

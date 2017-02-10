@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h2>Administrationspanel</h2>
+        <label for="auctionHistoryTable">Auktionshistorik för alla avslutade auktioner</label>
+        <table id="auctionHistoryTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Auktion</th>
+                    <th>Började</th>
+                    <th>Utgångstid</th>
+                    <th>Provision</th>
+                    <th>Provisionssats</th>
+                    <th>Auktionsägande</th>
+                    <th>Kategori</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="auc in auctions | orderBy:'endTime' ">
+                    <td>{{ auc.name }}</td>
+                    <td>{{ auc.startTime | date: "yyyy-MM-dd, HH:mm"  }}</td>
+                    <td>{{ auc.endTime | date: "yyyy-MM-dd, HH:mm"  }}</td>
+                    <!--<td>{{ auc.commission }}</td>-->
+                    <td>{{ auc.commissionRate * auc.buyNowPrice }}</td>
+                    <td>{{ auc.commissionRate }}</td>
+                    <td>{{ auc.supplierName }}</td>
+                    <td>{{ auc.categoryName }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

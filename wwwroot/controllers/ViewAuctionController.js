@@ -4,24 +4,14 @@ angular.module("Auctions")
         //get auction info
         AuctionService.GetAuction($routeParams.id).then(function (auction) {
             //set info to more presentable formats
-            $scope.auctionInfo = auction;
-            $scope.auctionInfo.startTime = new Date(auction.startTime);
-            $scope.auctionInfo.endTime = new Date(auction.endTime);
+            $scope.auctionInfo = AuctionService.AssignCategoryNamesAndDates([auction])[0];
+
             if (auction.sold == false && auction.endTime > new Date()) {
                 $scope.sold = "Auktionen har inte avslutats än"
             }
             else {
                 $scope.sold = "Auktionen har avslutats och kan ej längre budas på"
             }
-
-            AuctionService.GetCategories().then(function (categories) {
-                for (let i = 0; i < categories.length; i++) {
-                    if (categories[i].id === auction.categoryId) {
-                        $scope.auctionInfo.categoryName = categories[i].name;
-                        break;
-                    }
-                }
-            });
 
             AuctionService.GetSupplierInfo($scope.auctionInfo.supplierId).then(function (supplierInfo) {
                 $scope.supplierInfo = supplierInfo;
@@ -50,10 +40,11 @@ angular.module("Auctions")
         $scope.bid = function (bid) {
             //auctionId, customerId, bid
             if (bid > $scope.highestBid && bid < $scope.auctionInfo.buyNowPrice) {
-                AuctionService.Bid($scope.auctionInfo.id, AuthService.GetCurrentUserId(), bid).then(function (response) {
+                $scope.invalidBid = false;
+                AuctionService.Bid($scope.auctionInfo.id, AuthService.GetCurrentUserId(), bid).then(function (success) {
                     $scope.updateBids();
-                    console.log(response);
-                    if (response.status != 200) {
+                    console.log(success);
+                    if (!success) {
                         $scope.bidDeclined = true;
                     }
                 });
