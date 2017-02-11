@@ -7,4 +7,7 @@ angular.module("Auctions")
         AuctionService.GetAllAuctions().then(function (auctions) {
             $scope.allAuctions = AuctionService.AssignCategoryNamesAndDates(auctions);
         });
+        AuctionService.GetCategories().then(function (categories) {
+            $scope.categories = categories;
+        })
     });

@@ -19,6 +19,18 @@ angular.module("Auctions", [])
                 });
             },
 
+            GetHighestBidById: function (id) {
+                return $http.get("http://nackademiskasecure.azurewebsites.net/api/bid/" + id).then(function (bids) {
+                    let highestBid = 0;
+                    for (let i = 0; i < bids.length; i++) {
+                        if (bids[i] > highestBid) {
+                            highestBid = bids[i];
+                        }
+                    }
+                    return highestBid;
+                });
+            },
+
             GetCategories: function () {
                 return $http.get("http://nackademiskasecure.azurewebsites.net/api/category").then(function (categories) {
                     return categories.data;
@@ -54,7 +66,8 @@ angular.module("Auctions", [])
             },
 
             AssignSupplierNamesAndCommissions: function (auctions) {
-                this.GetAllSuppliers().then(function (suppliers) {
+                let self = this;
+                return this.GetAllSuppliers().then(function (suppliers) {
                     for (let i = 0; i < auctions.length; i++) {
                         for (let n = 0; n < suppliers.length; n++) {
                             if (auctions[i].supplierId == suppliers[n].id) {
@@ -68,19 +81,19 @@ angular.module("Auctions", [])
                             auctions[i].commission = (auctions[i].commissionRate * auctions[i].buyNowPrice);
                         }
                         else {
-                            AuctionService.GetBidsById(auctions[i].id).then(function (bids) {
+                            self.GetBidsById(auctions[i].id).then(function (bids) {
                                 var highestBid = 0;
                                 for (var n = 0; n < bids.length; n++) {
-                                    if (bids[n] > highestBid) {
-                                        highestBid = bids[n];
+                                    if (bids[n].bidPrice > highestBid) {
+                                        highestBid = bids[n].bidPrice;
                                     }
                                 }
                                 auctions[i].commission = auctions[i].commissionRate * highestBid;
                             });
                         }
                     }
+                    return auctions;
                 });
-                return auctions;
             },
 
             Bid: function (auctionId, customerId, bidPrice) {

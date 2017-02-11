@@ -1,14 +1,16 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3" style="background-color: lightpink; border: 1px solid darkred">
         <div class="row">
-            <label class="control-label" for="searchField">Sök</label>
-            <input id="searchField" type="text" data-ng-model="searchString" >
-        </div>
-        <div class="row">
-            <label class="control-label" for="catSelect">Kategorier</label>
-            <select data-ng-model="selectedCategory" data-ng-options="c as c.name for c in categories">
-                <option value="">Visa alla</option>
-            </select>
+            <div class="col-xs-7">
+                <label class="control-label" for="searchField">Sök</label>
+                <input id="searchField" type="text" data-ng-model="searchString" class="form-control" >
+            </div>
+            <div class="col-xs-5">
+                <label class="control-label" for="catSelect">Kategorier</label>
+                <select data-ng-model="selectedCategory" data-ng-options="c as c.name for c in categories" class="form-control">
+                    <option value="">Visa alla</option>
+                </select>
+            </div>
         </div>
     </div>
 </div>
