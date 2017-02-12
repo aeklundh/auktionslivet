@@ -10,17 +10,19 @@
                     <th>Utgångstid</th>
                     <th>Provision</th>
                     <th>Provisionssats</th>
+                    <th>Buyout</th>
                     <th>Auktionsägande</th>
                     <th>Kategori</th>
                 </tr>
             </thead>
             <tbody>
                 <tr data-ng-repeat="auc in auctions | orderBy:'endTime' ">
-                    <td>{{ auc.name }}</td>
+                    <td><a href="/auction/{{ auc.id }}"></a>{{ auc.name }}</td>
                     <td><i>{{ auc.startTime | date: "yyyy-MM-dd, HH:mm" }}</i></td>
                     <td><i>{{ auc.endTime | date: "yyyy-MM-dd, HH:mm" }}</i></td>
                     <td>{{ auc.commission }}</td>
-                    <td>{{ auc.commissionRate * 10 }}%</td>
+                    <td>{{ auc.commissionRate * 100 }}%</td>
+                    <td>{{ auc.sold }}</td>
                     <td>{{ auc.supplierName }}</td>
                     <td>{{ auc.categoryName }}</td>
                 </tr>
