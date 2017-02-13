@@ -1,5 +1,5 @@
 angular.module("Auctions")
-    .controller("AuctionController", function ($scope, AuctionService) {
+    .controller("HomeController", function ($scope, AuctionService) {
         //set datetime
         $scope.currentTimestamp = new Date();
 

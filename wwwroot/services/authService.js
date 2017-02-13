@@ -7,8 +7,7 @@ angular.module("Authentication", [])
             Login: function (email, password) {
                 if (email == "admin@admin.se") {
                     return $http.post("http://nackademiskasecure.azurewebsites.net/api/account/admin/login",
-                        { "email": email, "password": password },
-                        { withCredentials: true })
+                        { "email": email, "password": password })
                         .then(function (response) {
                             user = -1;
                             $rootScope.rs_authenticatedUser = "-1";

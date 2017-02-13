@@ -2,11 +2,11 @@ var app = angular.module("auktionslivet", ["ngRoute", "angular-jwt", "Auctions",
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider.when("/", {
-        templateUrl: "views/main.html",
-        controller: "AuctionController"
+        templateUrl: "views/home.html",
+        controller: "HomeController"
     })
     .when("/auction/:id", {
-        templateUrl: "views/viewAuction.html",
+        templateUrl: "views/view-auction.html",
         controller: "ViewAuctionController"
     })
     .when("/login", {
