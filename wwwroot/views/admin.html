@@ -10,19 +10,17 @@
                     <th>Utgångstid</th>
                     <th>Provision</th>
                     <th>Provisionssats</th>
-                    <th>Buyout</th>
                     <th>Auktionsägande</th>
                     <th>Kategori</th>
                 </tr>
             </thead>
             <tbody>
                 <tr data-ng-repeat="auc in auctions | orderBy:'endTime' ">
-                    <td><a href="/auction/{{ auc.id }}"></a>{{ auc.name }}</td>
+                    <td><a href="/auction/{{ auc.id }}">{{ auc.name }}</a></td>
                     <td><i>{{ auc.startTime | date: "yyyy-MM-dd, HH:mm" }}</i></td>
                     <td><i>{{ auc.endTime | date: "yyyy-MM-dd, HH:mm" }}</i></td>
                     <td>{{ auc.commission }}</td>
                     <td>{{ auc.commissionRate * 100 }}%</td>
-                    <td>{{ auc.sold }}</td>
                     <td>{{ auc.supplierName }}</td>
                     <td>{{ auc.categoryName }}</td>
                 </tr>
@@ -30,26 +28,38 @@
         </table>
     </div>
 </div>
-<div class="row">
+<div>
     <div class="col-md-6 col-md-offset-3">
         <div class="row">
-            <div class="col-xs-5">
-                <label class="control-label" for="monthSelect">Månadsrapport</label>
-                <select data-ng-model="selectedMonth" data-ng-options="month as 'month.year, month.name' for month in salesMonths" id="monthSelect" class="form-control">
-                    <option value="">Visa alla</option>
-                </select>
-            </div>
+            <button data-ng-disabled="noAuctions" data-ng-click="salesMonths=SalesReport(auctions); showReport = !showReport" class="btn btn-primary">Visa månadsrapporter</button>
         </div>
-        <div class="row">
-            <table>
-                <thead>
-                    <tr data-ng-repeat="month in salesMonths | filter: { month: selectedMonth }">
-                        <th>År</th>
-                        <th>Månad</th>
-                        <th>Profit</th>
-                    </tr>
-                </thead>
-            </table>
+        <div class="row" data-ng-show="showReport">
+            <div class="row">
+                <div class="col-xs-5">
+                    <select data-ng-model="selectedYear" data-ng-options="year for year in salesYears" class="form-control">
+                       <option value="">Visa alla</option>
+                    </select>
+                    <span data-ng-hide="selectedYear != null"><p class="text-info">Total intäkt: {{ salesSum }} SEK</p></span>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>År</th>
+                            <th>Månad</th>
+                            <th>Intäkt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="month in salesMonths | orderBy: 'year; month.value' | filter: { 'year': selectedYear||undefined }">
+                            <td>{{ month.year }}</td>
+                            <td>{{ month.month.name }}</td>
+                            <td>{{ month.earned }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

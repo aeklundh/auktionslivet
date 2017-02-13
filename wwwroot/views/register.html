@@ -1,40 +1,48 @@
 <div class="col-md-6 col-md-offset-3">
-    <form class="form-horizontal">
+    <form name="regForm" class="form-horizontal">
         <div class="form-group">
             <label for="firstName" class="control-label">Förnamn</label>
-            <input type="text" data-ng-model="newUser.firstName" required class="form-control">
+            <input type="text" name="firstName" data-ng-model="newUser.firstName" required class="form-control">
+            <span ng-show="regForm.firstName.$touched && regForm.firstName.$invalid" class="text-warning">Var god skriv i ditt förnamn</span>
         </div>
         <div class="form-group">
             <label for="lastName" class="control-label">Efternamn</label>
-            <input type="text" data-ng-model="newUser.lastName" required class="form-control">
+            <input type="text" name="lastName" data-ng-model="newUser.lastName" required class="form-control">
+            <span ng-show="regForm.lastName.$touched && regForm.lastName.$invalid" class="text-warning">Var god skriv i ditt efternamn</span>
         </div>
         <div class="form-group">
             <label for="address" class="control-label">Adress</label>
-            <input type="text" data-ng-model="newUser.address" required class="form-control">
+            <input type="text" name="address" data-ng-model="newUser.address" required class="form-control">
+            <span ng-show="regForm.address.$touched && regForm.address.$invalid" class="text-warning">Var god skriv i din adress</span>
         </div>
         <div class="form-group">
             <label for="postalCode" class="control-label">Postnummer</label>
-            <input type="text" data-ng-model="newUser.postalCode" required class="form-control">
+            <input type="text" name="postalCode" data-ng-model="newUser.postalCode" required class="form-control">
+            <span ng-show="regForm.postalCode.$touched && regForm.postalCode.$invalid" class="text-warning">Var god skriv i ditt postnummer</span>
         </div>
         <div class="form-group">
             <label for="city" class="control-label">Stad/kommun</label>
-            <input type="text" data-ng-model="newUser.city" required class="form-control">
+            <input type="text" name="city" data-ng-model="newUser.city" required class="form-control">
+            <span ng-show="regForm.city.$touched && regForm.city.$invalid" class="text-warning">Var god skriv i din stad/kommun</span>
         </div>
         <div class="form-group">
             <label for="phone" class="control-label">Telefon</label>
-            <input type="text" data-ng-model="newUser.phone" required class="form-control">
+            <input type="text" name="phone" data-ng-model="newUser.phone" required class="form-control">
+            <span ng-show="regForm.phone.$touched && regForm.phone.$invalid" class="text-warning">Var god skriv i ditt telefonnummer</span>
         </div>
         <div class="form-group">
             <label for="email" class="control-label">E-post</label>
-            <input type="email" data-ng-model="newUser.email" required class="form-control">
+            <input type="email" name="email" data-ng-model="newUser.email" required class="form-control">
+            <span ng-show="regForm.email.$touched && regForm.email.$invalid" class="text-warning">Var god skriv en giltig e-postadress</span>
         </div>
         <div class="form-group">
             <label for="password" class="control-label">Lösenord</label>
-            <input type="password" data-ng-model="newUser.password" required class="form-control">
+            <input type="password" name="password" data-ng-model="newUser.password" required class="form-control">
+            <span ng-show="regForm.password.$touched && regForm.password.$invalid" class="text-warning">Var god skriv i ditt önskade lösenord</span>
         </div>
         <div class="form-group">
-            <button type="button" data-ng-click="register()" class="btn btn-primary">Registrera</button>
-            <span data-ng-show="invalidAttempt"><p class="text-info">Vi kunde inte registrera dig med de uppgifterna.</p></span>
+            <input type="submit" data-ng-submit="register()" class="btn btn-primary" value="Registrera"></button>
+            <span data-ng-show="invalidAttempt"><p class="text-info">Vi kunde inte registrera dig med de uppgifterna, den e-postadressen kan vara upptagen.</p></span>
         </div>
     </form>
 </div>

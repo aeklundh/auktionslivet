@@ -6,7 +6,7 @@ angular.module("Auctions")
             //set info to more presentable formats
             $scope.auctionInfo = AuctionService.AssignCategoryNamesAndDates([auction])[0];
 
-            if (auction.sold == false && auction.endTime > new Date()) {
+            if (auction.sold == false && new Date(auction.endTime) > new Date()) {
                 $scope.sold = "Auktionen har inte avslutats än"
             }
             else {
@@ -43,7 +43,6 @@ angular.module("Auctions")
                 $scope.invalidBid = false;
                 AuctionService.Bid($scope.auctionInfo.id, AuthService.GetCurrentUserId(), bid).then(function (success) {
                     $scope.updateBids();
-                    console.log(success);
                     if (!success) {
                         $scope.bidDeclined = true;
                     }

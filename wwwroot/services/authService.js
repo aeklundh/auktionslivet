@@ -1,5 +1,5 @@
 angular.module("Authentication", [])
-    .factory("AuthService", function ($http, $rootScope) {
+    .factory("AuthService", function ($http, $rootScope, jwtHelper) {
         var user = null;
         var userToken = null;
 
@@ -46,14 +46,14 @@ angular.module("Authentication", [])
             },
 
             IsAdminAuthorized: function () {
-              return (user == -1 && userToken != null);  
+                return (user == -1 && userToken != null && !jwtHelper.isTokenExpired(userToken));
             },
 
             GetCurrentUserId: function () {
                 return user;
             },
 
-            GetUserToken: function() {
+            GetUserToken: function () {
                 return userToken;
             },
 

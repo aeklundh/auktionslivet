@@ -89,8 +89,6 @@ angular.module("Auctions", [])
                                     }
                                 }
                                 auctions[i].commission = (auctions[i].commissionRate * highestBid);
-                                console.log("have assigned " + (auctions[i].commissionRate * highestBid) + " to " + auctions[i].name);
-                                canReturn -= 1;
                             });
                         }
                     }

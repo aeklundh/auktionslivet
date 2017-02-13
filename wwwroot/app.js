@@ -1,4 +1,4 @@
-var app = angular.module("auktionslivet", ["ngRoute", "Auctions", "Authentication", "Admin"]);
+var app = angular.module("auktionslivet", ["ngRoute", "angular-jwt", "Auctions", "Authentication", "Admin"]);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider.when("/", {
@@ -31,9 +31,3 @@ app.config(function($routeProvider, $locationProvider) {
 
     $locationProvider.html5Mode(true);
 });
-
-// app.directive("woop", function() {
-//     return {
-//         templateUrl: "directives/woop.html"
-//     };
-// });
