@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-6 col-md-offset-3" style="background-color: lightpink; border: 1px solid darkred">
+    <div class="col-md-6 col-md-offset-3">
         <div class="row">
             <div class="col-xs-7">
                 <label class="control-label" for="searchField">Sök</label>
@@ -30,7 +30,7 @@
                     ng-if="auc.endTime > currentTimestamp"
                     ng-if="auc.startTime < currentTimestamp" >
                     
-                    <td><img style="max-width: 40%; max-height: 300px" data-ng-src="{{auc.imageUrl}}"></td>
+                    <td><img class="tableImage" data-ng-src="{{auc.imageUrl}}"></td>
                     <td><a href="/auction/{{auc.id}}">{{auc.name}}</a></td>
                     <td>{{ auc.categoryName }}</td>
                 </tr>

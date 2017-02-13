@@ -46,7 +46,12 @@ angular.module("Authentication", [])
             },
 
             IsAdminAuthorized: function () {
-                return (user == -1 && userToken != null && !jwtHelper.isTokenExpired(userToken));
+                if (jwtHelper.isTokenExpired(userToken)) {
+                    $rootScope.rs_authenticatedUser = null;
+                    user = null;
+                    userToken = null;
+                }
+                return (user == -1 && userToken != null);
             },
 
             GetCurrentUserId: function () {

@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <img data-ng-src="{{ auctionInfo.imageUrl }}" style="max-width: 50%">
+        <img data-ng-src="{{ auctionInfo.imageUrl }}" class="detailsImage">
     </div>
 </div>
 
@@ -50,8 +50,8 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="bid in bidHistory">
-                            <td>{{ bid.dateTime.toUTCString() }}</td>
-                            <td>{{ bid.bidPrice }}</td>
+                            <td>{{ bid.dateTime | date: "yyyy-MM-dd, HH:mm" }}</td>
+                            <td>{{ bid.bidPrice }} SEK</td>
                         </tr>
                     </tbody>
                 </table>

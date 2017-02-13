@@ -1,0 +1,17 @@
+body {
+    font-family: 'Cuprum', sans-serif;
+    background-color: ghostwhite;
+}
+
+.navbar {
+    background-color: lightpink;
+}
+
+.tableImage {
+    max-width: 40%;
+    max-height: 300px;
+}
+
+.detailsImage {
+    max-width: 50%;
+}
