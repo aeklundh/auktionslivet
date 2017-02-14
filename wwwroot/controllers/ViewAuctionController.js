@@ -45,6 +45,7 @@ angular.module("Auctions")
         $scope.updateBids();
         //set functions for the view
         $scope.bid = function (bid) {
+            console.log(AuthService.GetCurrentUserId());
             //auctionId, customerId, bid
             if (bid > $scope.highestBid && bid < $scope.auctionInfo.buyNowPrice) {
                 $scope.invalidBid = false;
