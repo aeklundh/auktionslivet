@@ -19,7 +19,8 @@ angular.module("Authentication", [])
                 }
                 else {
                     return $http.post("http://nackademiskasecure.azurewebsites.net/api/account/login",
-                        { "email": email, "password": password })
+                        { "email": email, "password": password },
+                        { withCredentials: true })
                         .then(function (response) {
                             $rootScope.rs_authenticatedUser = response.data.id;
                             user = response.data.id;
