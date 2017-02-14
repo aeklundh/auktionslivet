@@ -1,4 +1,4 @@
-var app = angular.module("auktionslivet", ["ngRoute", "angular-jwt", "Auctions", "Authentication", "Admin"]);
+var app = angular.module("auktionslivet", ["ngRoute", "ngCookies", "angular-jwt", "Auctions", "Authentication", "Admin"]);
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider.when("/", {

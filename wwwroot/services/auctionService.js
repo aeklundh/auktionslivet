@@ -107,7 +107,6 @@ angular.module("Auctions", [])
                 };
                 return $http.post("http://nackademiskasecure.azurewebsites.net/api/bid", bid, { withCredentials: true })
                     .then(function (response) {
-                        console.log(response, typeof response);
                         return true;
                     }, function (error) {
                         return false;

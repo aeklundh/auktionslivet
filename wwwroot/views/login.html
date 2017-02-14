@@ -1,15 +1,17 @@
 <div class="col-md-6 col-md-offset-3">
-    <form class="form-horizontal">
+    <form name="loginForm" class="form-horizontal" data-ng-submit="login()">
         <div class="form-group">
             <label for="email" class="control-label">E-post</label>
-            <input type="email" data-ng-model="email" class="form-control">
+            <input name="email" type="email" required data-ng-model="email" class="form-control">
+            <span ng-show="loginForm.email.$touched && loginForm.email.$invalid" class="text-warning">Var god skriv en giltig e-postadress</span>
         </div>
         <div class="form-group">
             <label for="password" class="control-label">Lösenord</label>
-            <input type="password" data-ng-model="password" class="form-control">
+            <input name="password" type="password" required data-ng-model="password" class="form-control">
+            <span ng-show="loginForm.password.$touched && loginForm.password.$invalid" class="text-warning">Var god fyll i ditt lösenord</span>
         </div>
         <div class="form-group">
-            <button type="button" data-ng-click="login()" class="btn btn-primary">Logga in</button>
+            <input type="submit" value="Logga in" class="btn btn-primary" />
             <span data-ng-show="invalidLogin"><p class="text-info">Vi kunde inte logga in dig med de uppgifterna.</p></span>
         </div>
     </form>

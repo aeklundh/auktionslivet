@@ -1,5 +1,5 @@
 angular.module("Authentication", [])
-    .factory("AuthService", function ($http, $rootScope, jwtHelper) {
+    .factory("AuthService", function ($http, $rootScope, $cookieStore, jwtHelper) {
         var user = null;
         var userToken = null;
 
@@ -19,8 +19,7 @@ angular.module("Authentication", [])
                 }
                 else {
                     return $http.post("http://nackademiskasecure.azurewebsites.net/api/account/login",
-                        { "email": email, "password": password },
-                        { withCredentials: true })
+                        { "email": email, "password": password })
                         .then(function (response) {
                             $rootScope.rs_authenticatedUser = response.data.id;
                             user = response.data.id;

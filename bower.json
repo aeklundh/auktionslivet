@@ -18,6 +18,7 @@
     "angular": "^1.6.1",
     "bootstrap.native": "^2.0.1",
     "angular-route": "^1.6.1",
-    "angular-jwt": "^0.1.9"
+    "angular-jwt": "^0.1.9",
+    "angular-cookies": "^1.6.2"
   }
 }
