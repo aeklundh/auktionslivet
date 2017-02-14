@@ -13,75 +13,97 @@ angular.module("Admin")
             });
 
             $scope.SalesReport = function (auctions) {
-                $scope.salesSum = 0;
+                if ($scope.salesMonths == undefined) {
 
-                let GetMonthName = function (monthId) {
-                    let monthName;
-                    switch (monthId) {
-                        case 0: monthName = "Januari"; break;
-                        case 1: monthName = "Februari"; break;
-                        case 2: monthName = "Mars"; break;
-                        case 3: monthName = "April"; break;
-                        case 4: monthName = "Maj"; break;
-                        case 5: monthName = "Juni"; break;
-                        case 6: monthName = "Juli"; break;
-                        case 7: monthName = "Augusti"; break;
-                        case 8: monthName = "September"; break;
-                        case 9: monthName = "Oktober"; break;
-                        case 10: monthName = "November"; break;
-                        case 11: monthName = "December"; break;
-                    }
-                    return monthName;
-                }
+                    $scope.salesSum = 0;
 
-
-
-                //set commission per month in salesMonths
-                $scope.salesSum += auctions[0].commission;
-                let salesYears = [auctions[0].endTime.getFullYear()];
-                salesMonths = [{
-                    "year": auctions[0].endTime.getFullYear(),
-                    "month": { "value": auctions[0].endTime.getUTCMonth(), "name": GetMonthName(auctions[0].endTime.getUTCMonth()) },
-                    "earned": auctions[0].commission,
-                    "auctions": 1
-                }];
-                for (let i = 1; i < auctions.length; i++) {
-                    let foundMonth = false;
-                    let foundYear = false;
-                    for (let n = 0; n < salesYears.length; n++) {
-                        if (salesYears[n] == auctions[i].endTime.getFullYear()) {
-                            foundYear = true;
+                    let GetMonthName = function (monthId) {
+                        let monthName;
+                        switch (monthId) {
+                            case 0: monthName = "Januari"; break;
+                            case 1: monthName = "Februari"; break;
+                            case 2: monthName = "Mars"; break;
+                            case 3: monthName = "April"; break;
+                            case 4: monthName = "Maj"; break;
+                            case 5: monthName = "Juni"; break;
+                            case 6: monthName = "Juli"; break;
+                            case 7: monthName = "Augusti"; break;
+                            case 8: monthName = "September"; break;
+                            case 9: monthName = "Oktober"; break;
+                            case 10: monthName = "November"; break;
+                            case 11: monthName = "December"; break;
                         }
+                        return monthName;
                     }
 
-                    for (let n = 0; n < salesMonths.length; n++) {
-                        if (salesMonths[n].month.value == auctions[i].endTime.getUTCMonth()
-                            && salesMonths[n].year == auctions[i].endTime.getFullYear()) {
 
-                            salesMonths[n].earned += auctions[i].commission;
+
+                    //set commission per month in salesMonths
+                    $scope.salesSum += auctions[0].commission;
+                    let salesYears = [auctions[0].endTime.getFullYear()];
+                    salesMonths = [{
+                        "year": auctions[0].endTime.getFullYear(),
+                        "month": { "value": auctions[0].endTime.getUTCMonth(), "name": GetMonthName(auctions[0].endTime.getUTCMonth()) },
+                        "earned": auctions[0].commission,
+                        "auctionAmount": 1,
+                        "auctions": [{
+                            "id": auctions[0].id,
+                            "name": auctions[0].name,
+                            "supplierName": auctions[0].supplierName,
+                            "commission": auctions[0].commission
+                        }]
+                    }];
+                    for (let i = 1; i < auctions.length; i++) {
+                        let foundMonth = false;
+                        let foundYear = false;
+                        for (let n = 0; n < salesYears.length; n++) {
+                            if (salesYears[n] == auctions[i].endTime.getFullYear()) {
+                                foundYear = true;
+                            }
+                        }
+
+                        for (let n = 0; n < salesMonths.length; n++) {
+                            if (salesMonths[n].month.value == auctions[i].endTime.getUTCMonth()
+                                && salesMonths[n].year == auctions[i].endTime.getFullYear()) {
+
+                                salesMonths[n].earned += auctions[i].commission;
+                                $scope.salesSum += auctions[i].commission;
+                                salesMonths[n].auctionAmount += 1;
+                                salesMonths[n].auctions.push({
+                                    "id": auctions[i].id,
+                                    "name": auctions[i].name,
+                                    "supplierName": auctions[i].supplierName,
+                                    "commission": auctions[i].commission
+                                });
+                                foundMonth = true;
+                                break;
+                            }
+                        }
+
+                        if (!foundYear) {
+                            salesYears.push(auctions[i].endTime.getFullYear());
+                        }
+
+                        if (!foundMonth) {
                             $scope.salesSum += auctions[i].commission;
-                            salesMonths[n].auctions += 1;
-                            foundMonth = true;
-                            break;
+                            salesMonths.push({
+                                "year": auctions[i].endTime.getFullYear(),
+                                "month": { "value": auctions[i].endTime.getUTCMonth(), "name": GetMonthName(auctions[i].endTime.getUTCMonth()) },
+                                "earned": auctions[i].commission,
+                                "auctionAmount": 1,
+                                "auctions": [{
+                                    "id": auctions[i].id,
+                                    "name": auctions[i].name,
+                                    "supplierName": auctions[i].supplierName,
+                                    "commission": auctions[i].commission
+                                }]
+                            });
                         }
                     }
-
-                    if (!foundYear) {
-                        salesYears.push(auctions[i].endTime.getFullYear());
-                    }
-
-                    if (!foundMonth) {
-                        $scope.salesSum += auctions[i].commission;
-                        salesMonths.push({
-                            "year": auctions[i].endTime.getFullYear(),
-                            "month": { "value": auctions[i].endTime.getUTCMonth(), "name": GetMonthName(auctions[i].endTime.getUTCMonth()) },
-                            "earned": auctions[i].commission,
-                            "auctions": 1
-                        });
-                    }
+                    $scope.salesSum = Math.round($scope.salesSum);
+                    $scope.salesYears = salesYears;
+                    return salesMonths;
                 }
-                $scope.salesYears = salesYears;
-                return salesMonths;
             };
         }
         else {

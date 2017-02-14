@@ -3,19 +3,26 @@ angular.module("Auctions")
 
         //get auction info
         AuctionService.GetAuction($routeParams.id).then(function (auction) {
-            //set info to more presentable formats
-            $scope.auctionInfo = AuctionService.AssignCategoryNamesAndDates([auction])[0];
+            if (auction != null) {
+                //set info to more presentable formats
+                $scope.auctionInfo = AuctionService.AssignCategoryNamesAndDates([auction])[0];
 
-            if (auction.sold == false && new Date(auction.endTime) > new Date()) {
-                $scope.sold = "Auktionen har inte avslutats än"
+                //check if auction is in date
+                if (auction.sold == false && new Date(auction.endTime) > new Date()) {
+                    $scope.sold = "Auktionen har inte avslutats än"
+                }
+                else {
+                    $scope.sold = "Auktionen har avslutats och kan ej längre budas på"
+                }
+
+                //set supplier info
+                AuctionService.GetSupplierInfo($scope.auctionInfo.supplierId).then(function (supplierInfo) {
+                    $scope.supplierInfo = supplierInfo;
+                });
             }
             else {
-                $scope.sold = "Auktionen har avslutats och kan ej längre budas på"
+                $scope.noAuction = true;
             }
-
-            AuctionService.GetSupplierInfo($scope.auctionInfo.supplierId).then(function (supplierInfo) {
-                $scope.supplierInfo = supplierInfo;
-            });
         });
 
         //get relevant bids
@@ -53,8 +60,8 @@ angular.module("Auctions")
             }
         }
 
-        $scope.buyout = function() {
-            AuctionService.Buyout($scope.auctionInfo.id, AuthService.GetCurrentUserId()).then(function(response) {
+        $scope.buyout = function () {
+            AuctionService.Buyout($scope.auctionInfo.id, AuthService.GetCurrentUserId()).then(function (response) {
                 $scope.auctionInfo.sold = true;
                 if (response.status != 200) {
                     $scope.buyoutDeclined = true;

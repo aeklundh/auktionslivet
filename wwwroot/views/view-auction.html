@@ -1,5 +1,6 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
+        <h4 class="text-danger" data-ng-show="noAuction">Auktionsdetaljerna kunde inte hämtas.</h4>
         <p>Produkt: {{ auctionInfo.name }} i kategori <i>{{ auctionInfo.categoryName }}</i>.</p>
         <p>{{ auctionInfo.description }}</p>
         <p>Högsta bud: {{ highestBid }} SEK.</p>
@@ -21,7 +22,7 @@
         <button type="button" data-ng-click="ToggleVisibility('bid', bidVisible)" data-ng-disabled="auctionInfo.sold || rs_authenticatedUser == null" class="btn btn-info">Lägg bud</button>
         <button type="button" data-ng-click="ToggleVisibility('buyout', buyoutVisible)" data-ng-disabled="auctionInfo.sold || rs_authenticatedUser == null" class="btn btn-info">Köp nu</button>
         <button type="button" data-ng-click="ToggleVisibility('bidHistory', bidHistoryVisible)" class="btn btn-default">Visa budhistorik</button>
-        <button type="button" data-ng-click="ToggleVisibility('supplierInfo', supplierInfoVisible)" class="btn btn-default">Visa detaljer om säljaren</button>
+        <button type="button" data-ng-click="ToggleVisibility('supplierInfo', supplierInfoVisible)" class="btn btn-default">Visa detaljer om auktionsägande</button>
 
         <div class="row">
             <div data-ng-show="bidVisible">
@@ -58,7 +59,7 @@
             </div>
             <div data-ng-show="supplierInfoVisible">
                 <br />
-                <p><b>Säljare:</b> {{ supplierInfo.name }}. <br />
+                <p>{{ supplierInfo.name }} <br />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>{{ supplierInfo.address }} <br />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ supplierInfo.postalCode }} <br />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ supplierInfo.city }}</i> <br />

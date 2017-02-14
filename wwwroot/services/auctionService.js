@@ -10,6 +10,8 @@ angular.module("Auctions", [])
             GetAuction: function (id) {
                 return $http.get("http://nackademiskasecure.azurewebsites.net/api/auction/" + id).then(function (auction) {
                     return auction.data;
+                }, function() {
+                    return null;
                 });
             },
 

@@ -15,3 +15,7 @@ body {
 .detailsImage {
     max-width: 50%;
 }
+
+.inTable {
+    list-style: none;
+}

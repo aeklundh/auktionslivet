@@ -45,7 +45,7 @@ angular.module("Authentication", [])
             },
 
             IsAdminAuthorized: function () {
-                if (jwtHelper.isTokenExpired(userToken)) {
+                if (userToken == null || jwtHelper.isTokenExpired(userToken)) {
                     $rootScope.rs_authenticatedUser = null;
                     user = null;
                     userToken = null;

@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <h2>Administrationspanel</h2>
+        <h4 class="text-danger" data-ng-show="noAuctions">Auktionshistoriken kunde inte hämtas</h4>
         <label for="auctionHistoryTable">Auktionshistorik för alla avslutade auktioner</label>
         <table id="auctionHistoryTable" class="table table-striped">
             <thead>
@@ -35,10 +36,15 @@
         </div>
         <div class="row" data-ng-show="showReport">
             <div class="row">
+                <div class="col-xs-2">
+                    <p for="yearSelect" class="control-label">Välj år</p>
+                </div>
                 <div class="col-xs-5">
-                    <select data-ng-model="selectedYear" data-ng-options="year for year in salesYears" class="form-control">
+                    <select id="yearSelect" data-ng-model="selectedYear" data-ng-options="year for year in salesYears" class="form-control">
                        <option value="">Visa alla</option>
                     </select>
+                </div>
+                <div class="col-xs-5">
                     <span data-ng-hide="selectedYear != null"><p class="text-info">Total intäkt: {{ salesSum }} SEK</p></span>
                 </div>
             </div>
@@ -49,13 +55,23 @@
                             <th>År</th>
                             <th>Månad</th>
                             <th>Intäkt</th>
+                            <th>Antal auktioner</th>
+                            <th>Klicka för att se auktioner</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr data-ng-repeat="month in salesMonths | orderBy: 'year; month.value' | filter: { 'year': selectedYear||undefined }">
+                        <tr data-ng-click="show = !show" data-ng-repeat="month in salesMonths | orderBy: 'year; month.value' | filter: { 'year': selectedYear||undefined }">
                             <td>{{ month.year }}</td>
                             <td>{{ month.month.name }}</td>
-                            <td>{{ month.earned }}</td>
+                            <td>{{ month.earned }} SEK</td>
+                            <td>{{ month.auctionAmount }} st.</td>
+                            <td>
+                                <div data-ng-show="show">
+                                    <ul>
+                                        <li data-ng-repeat="auc in month.auctions" class="inTable"><a href="/auction/{{ auc.id }}">{{ auc.name }}</a> ({{ auc.supplierName }}), {{ auc.commission }} SEK</li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
