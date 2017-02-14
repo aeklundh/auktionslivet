@@ -1,5 +1,9 @@
 angular.module("Authentication")
     .controller("RegisterController", function ($scope, $location, AuthService) {
+        if (AuthService.IsAuthenticated()) {
+            $location.path("/");
+        }
+
         $scope.register = function() {
             console.log($scope.newUser);
             AuthService.RegisterNew($scope.newUser).then(function(success) {
