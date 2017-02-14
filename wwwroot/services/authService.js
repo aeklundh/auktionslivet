@@ -63,7 +63,9 @@ angular.module("Authentication", [])
 
             RegisterNew: function (newUser) {
                 return $http.post("http://nackademiskasecure.azurewebsites.net/api/customer", newUser).then(function (response) {
-                    return response.status == 200;
+                    return true;
+                }, function() {
+                    return false;
                 });
             }
         }

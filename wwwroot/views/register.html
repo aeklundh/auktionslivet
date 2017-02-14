@@ -1,5 +1,5 @@
 <div class="col-md-6 col-md-offset-3">
-    <form name="regForm" class="form-horizontal">
+    <form name="regForm" data-ng-submit="register()" class="form-horizontal">
         <div class="form-group">
             <label for="firstName" class="control-label">Förnamn</label>
             <input type="text" name="firstName" data-ng-model="newUser.firstName" required class="form-control">
@@ -41,7 +41,7 @@
             <span ng-show="regForm.password.$touched && regForm.password.$invalid" class="text-warning">Var god skriv i ditt önskade lösenord</span>
         </div>
         <div class="form-group">
-            <input type="submit" data-ng-submit="register()" class="btn btn-primary" value="Registrera"></button>
+            <input type="submit" class="btn btn-primary" value="Registrera"></button>
             <span data-ng-show="invalidAttempt"><p class="text-info">Vi kunde inte registrera dig med de uppgifterna, den e-postadressen kan vara upptagen.</p></span>
         </div>
     </form>
