@@ -1,5 +1,5 @@
 angular.module("Authentication", [])
-    .factory("AuthService", function ($http, $rootScope, $cookieStore, jwtHelper) {
+    .factory("AuthService", function ($http, $rootScope, jwtHelper) {
         var user = null;
         var userToken = null;
 
